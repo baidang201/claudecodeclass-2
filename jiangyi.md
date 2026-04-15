@@ -44,9 +44,9 @@ npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-reac
 ```
 npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max
 ```
-• 浏览器自动化 
+• 浏览器自动化 skill
 ```
-skillnpx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
 ```
 
 ### 4\. 安装 Skill 教程与实战
@@ -91,7 +91,7 @@ skillnpx skills add https://github.com/vercel-labs/agent-browser --skill agent
 
 ### 9\. Agent 简介
 
-这里的 Agent 指的是具有特定角色、上下文和工具集的 Claude 实例。
+这里的 Agent 指的是具有特定角色、上下文和工具集的 Claude 实例。打开一个claude窗口就是一个主Agent
 
 ### 10\. 多 Agent 非直接业务多窗口操作
 
