@@ -13,6 +13,7 @@
 ## 一、 扩展能力：Skill 与 MCP
 
 ### 1\. Skill 简介
+Anthropic 官方在 2025 年 10 月 16 日正式发布了 Claude Skills 功能，Skills 从此横空出世。截止到2026年4月社区贡献突破上万个skill。
 
 **Skill**是可复用的说明、知识、工作流，通常包含一个 SKILL.md 以及可运行脚本、资源文件。
 
@@ -74,7 +75,7 @@ npx skills add https://github.com/vercel-labs/skills --skill find-skills
   * 或下载skill文件夹，手动放置在全局skills目录 `~/.claude/skills` 目录 或者 项目的skills目录`./.claude/skills`。
   * **实战**: 尝试编写一个简单的 `weather-skill`，让 Claude 能在终端告诉你当前城市的天气。
 
-示范使用模板创建skill
+使用模板创建skill实战
 ```
 npx skills add https://github.com/anthropics/skills --skill skill-creator
 ```
@@ -102,7 +103,10 @@ claude
 
 ### 5\. MCP 简介
 
-**MCP** 是由 Anthropic 推出的开放协议，旨在标准化 AI 模型与外部数据源、工具之间的连接。
+MCP 全称：Model Context Protocol（模型上下文协议）
+它是 Anthropic（Claude 的开发公司）在 2024 年底推出的开放标准协议，被誉为 “AI 世界的 USB-C 接口” 或 “AI 的标准化工具连接层”。
+简单一句话理解
+MCP 让 Claude（尤其是 Claude Code / Claude Desktop） 能够安全、标准化地连接外部工具、数据库、API、浏览器、GitHub、Jira、Slack 等系统，突破了原来只能在聊天框里“看你粘贴什么就处理什么”的限制。
 
 ### 6\. MCPHub 资源网站
   * **mcpso**: [mcpso](https://mcp.so/)
@@ -114,49 +118,176 @@ claude
 ## 三、 命令与钩子：控制权的精细化
 
 ### 7\. 斜杠命令 (Command) 简介
-
-在 Claude Code 交互界面中，`/` 命令可以快速触发特定功能：
+Command（命令）是一种确定性的、由人类或系统主动发起的指令（例如Claude code 里的 /help ）。
+触发关系：Command 是唤醒 Skills 的一种最直接的方式。当你输入一条 Command 时，系统不需要经过复杂的思考（不需要 Agent），直接去执行对应的 Skills。
 
   * `/compact`: 压缩上下文，保留关键信息。
   * `/review`: 对当前暂存区的代码进行评审。
 
 ### 8\. Hook 简介
-
-**Hook** 允许在特定事件（如代码提交前、命令执行后）自动触发动作。
+Hook（钩子） 是一种事件监听机制。它允许系统在特定的“事件”发生时，自动拦截并执行一段代码（例如 Webhook、Git pre-commit hook）。
+联动关系：如果说 Command 是“人主动去按开关”，那么 Hook 就是“系统自动感应”。Hook 本身不处理复杂业务，它的核心作用是在特定时机触发一个 skill。
 
   * **Pre-commit Hook**: 在你 Git commit 之前，让 Claude 检查是否存在潜在的 Security Issue。
 
 -----
 
-## 四、 进阶流：多 Agent 协作
+## 四、 进阶：多 Agent 协作
 
 ### 9\. Agent 简介
 
 这里的 Agent 指的是具有特定角色、上下文和工具集的 Claude 实例。打开一个claude窗口就是一个主Agent
 
-### 10\. 多 Agent 非直接业务多窗口操作
+### 10\. Agent worktree 非直接业务多窗口任务
 
 通过 `--worktree` 参数实现并行开发：
 
   * **窗口 A (开发)**: 执行主逻辑编写。
-  * **窗口 B (测试与 Review)**: 执行 `claude --worktree` 在另一个分支或目录进行测试覆盖率检查和代码质量评审。
+  * **窗口 B (功能1开发)**: 执行 `claude --worktree feature-dark-mode` 在另一个分支或目录执行暗黑UI切换。
+  * **窗口 C (功能2开发)**: 执行 `claude --worktree feature-filter` 在另一个分支或目录执行过滤功能开发。
+```
+mkdir tt-todolist-worktree
+cd tt-todolist-worktree
+git init
+```
+
+演示实操：
+#### 主agent
+```
+claude
+```
+
+```
+建一个简单好用的「个人待办事项清单」（Todo List）网页，能添加任务、标记完成、删除任务。
+```
+![alt text](image-62.png)
+
+等等应用初稿完成
+![alt text](image-63.png)
+![alt text](image-64.png)
+
+
+输入
+```
+使用git 提交一个记录
+```
+![alt text](image-65.png)
+
+
+#### 同时打开 ui背景切换 worktree，并执行任务
+```
+claude --worktree feature-dark-mode
+```
+输入
+```
+增加右上角按钮，实现深色模式切换
+```
+![alt text](image-66.png)
+
+
+深色模式，任务完成
+![alt text](image-68.png)
+
+
+```
+合并到master分支
+```
+
+![alt text](image-70.png)
+
+#### 同时打开任务完成情况过滤 worktree，并执行任务
+```
+claude --worktree feature-filter
+```
+
+输入
+```
+增加 任务过滤（全部/未完成/已完成）功能
+```
+
+![alt text](image-67.png)
+
+过滤功能完成
+![alt text](image-69.png)
+
+```
+合并到master分支
+```
+![alt text](image-71.png)
+
+
+合并后的最终版本
+![alt text](image-72.png)
 
 ### 11\. Agent Teams
+Claude Agent Teams（也称 Claude Code Agent Teams）是 Anthropic 在 2026 年 2 月 5 日 随 Claude Opus 4.6 模型发布的一项实验性（research preview）功能。
+Agent Teams 把“一个 Claude 慢慢干”变成了“一个团队的 Claude 同时干”，特别适合需要并行探索、审查或实现多个独立特性的复杂开发任务，而且这些agent可以协作通信。
 
-**Agent Teams** 概念允许你同时调动多个智能体。例如：
+#### Agent Team 演示（简化版 - 适合非技术观众）
 
-  * **Coordinator**: 负责分发任务。
-  * **Coder**: 负责写代码。
-  * **QA**: 负责写测试。
-    AI 会根据任务复杂度自动协调内部工作流。
+我们让 Claude 同时调动 **3 个 AI 智能体** 像一个小团队一样协作，共同完成一个任务：
 
+**演示任务**：  
+创建一个简单好用的「个人待办事项清单」（Todo List）网页，能添加任务、标记完成、删除任务。
+
+**参与的 3 个 AI 智能体**：
+- **Coordinator（协调员）**：像项目经理一样，制定计划、分配工作、把大家成果拼在一起。
+- **Frontend Developer（界面开发员）**：专门负责做出漂亮且好操作的网页界面。
+- **Tester（测试员）**：像质检员一样，认真测试所有功能是否正常，找出 bug 并要求修复。
+
+**演示看点**：
+- 看到 3 个 AI 如何分工合作（而不是一个人全包）。
+- 它们会互相沟通、分享信息。
+- 最终快速产出一个能正常使用的网页。
+
+这个过程能直观展示 **Agent Team** 如何让 AI 工作更高效、更有质量。
+
+```
+mkdir tt-todolist
+cd tt-todolist 
+```
+
+启动带agentteam功能的claude
+```
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+claude
+```
+
+
+输入
+```
+创建一个美观简洁的"个人待办事项列表"网页，让用户可以：
+1 添加新任务
+2 标记任务为已完成
+3 删除任务
+
+组建一个恰好包含以下3个角色的代理团队：
+1 协调员：担任团队领导。创建清晰的计划，将任务分配给其他成员，协调他们之间的工作，并将所有内容整合成一个最终可工作的页面。
+2 前端开发人员：构建用户界面（HTML + CSS + JavaScript）——使其简洁、现代且易于使用。
+3 测试员：全面测试所有功能，发现任何问题或边界情况（如空列表、长任务名称），并提出或实施修复。
+
+允许代理在需要时相互沟通。
+所有工作完成后，展示最终可工作的页面，并总结每个代理的贡献。
+首先创建代理团队并展示初始计划。
+```
+![alt text](image-59.png)
+
+
+在执行过程中，可以按左右箭头切换agent，然后按回车查看当前agent的执行日志
+![alt text](image-60.png)
+
+任务执行完成，关闭所有agent
+![alt text](image-61.png)
+
+
+更直观的同时观看所有agent的日志，可以安装tmux分屏软件，这里就不继续深入讨论了
 -----
 
 ## 五、 插件与框架对比
 
 ### 12\. Plugins 插件简介
-
-Plugins 是集合了 Skill、Command、Hook 的高级封装包。
+2025 年 10 月 9-10 日：正式公测（public beta）发布。
+Anthropic 宣布推出 Claude Code Plugins 系统，支持通过单一命令安装和分享自定义扩展（slash commands、agents、hooks、MCP 等）。这是 Claude Code 从“单一代理”向高度可扩展工具转型的重要一步。
 
 官方插件列表： https://claude.com/plugins#plugins
 ![alt text](image-3.png)
@@ -169,14 +300,14 @@ Plugins 是集合了 Skill、Command、Hook 的高级封装包。
 
 | 框架 | GitHub Stars（约） | 核心哲学 / 定位 | 多 Agent 方式 | 最佳使用场景 | 安装难度 | 重量级（流程繁重程度） | 社区口碑亮点 / 缺点 |
 |------|-------------------|-----------------|---------------|--------------|----------|----------------------|---------------------|
-| Superpowers | 94k–156k | 严谨工程纪律 + TDD + 结构化流程 | Sub-agent + 技能组合 + 对抗式审查 | 需要高质量代码、TDD、长期维护的项目 | 低（官方插件市场） | 中等–高 | 最成熟、增长最快；适合 solo 开发者补纪律。缺点：有时过于严格 |
-| GStack (gstack) | 50k–74k | 角色治理 + 虚拟团队视角（Garry Tan） | 23 个 Specialist Roles（CEO、Designer、QA、Security 等） | 产品规划、架构评审、团队标准化 | 低（skills） | 中等 | YC CEO 作品，决策层强；适合 startup 思维。缺点：部分技能偏产品而非纯工程 |
-| Get Shit Done (GSD) | 35k–54k | 轻量上下文工程 + 反"企业仪式" | Wave parallelism + 原子任务 + 上下文隔离 | Solo 快速交付、已知明确需求 | 低（npx） | 低 | 最轻快、不拖沓；适合不想繁琐流程的人。缺点：对复杂文档驱动项目较弱 |
-| BMAD | ~44k–45k | 多角色敏捷团队模拟 + 完整文档流 | 12+ 固定 Agent（PM、Architect、Dev、UX 等） | 复杂项目、需 PRD/Architecture 的团队 | 中等 | 高 | 文档最完整、企业感强；缺点：被吐槽 bloated（流程重、token 消耗大） |
-| SpecKit (GitHub 官方) | ~89k | Spec-Driven（规范先行） + Agent-agnostic | 无固定 Agent（跨工具标准化） | 合规、跨 Agent、大组织、spec 重项目 | 中等（CLI，支持 air-gapped） | 中等 | 企业友好度最高（有企业安装指南）；缺点：有时显得"生成幻觉工作" |
-| everything-claude-code | ~140k–158k | 生产级 + 可审计 + 大量 skills | 28+ Agent + 116+ skills | 生产系统、安全、可审计的大型项目 | 中等 | 高 | Skills 最丰富；适合重度用户。缺点：可能过于全面而复杂 |
-| Compound Engineering (CE) | ~11.5k–14.5k | 复利式工程（Plan 80% + Review + 知识积累） | 多 Agent + git worktrees 并行 | 长期可持续开发、知识复用 | 低（插件） | 中等 | 强调"每次工作让后续更容易"；适合想建立长期系统的人。Every Inc. 重度自用 |
-| OpenSpec | 中等 | 轻量 Spec-Driven + Delta Specs | 轻量 CLI 驱动 | Brownfield（现有代码）快速迭代 | 低 | 低 | 比 SpecKit 更快更轻；适合已有项目增量修改 |
+| Superpowers | 13.6k | 严谨工程纪律 + TDD + 结构化流程 | Sub-agent + 技能组合 + 对抗式审查 | 需要高质量代码、TDD、长期维护的项目 | 低（官方插件市场） | 中等–高 | 最成熟、增长最快；适合 solo 开发者补纪律。缺点：有时过于严格 |
+| GStack (gstack) | 10.5k | 角色治理 + 虚拟团队视角（Garry Tan） | 23 个 Specialist Roles（CEO、Designer、QA、Security 等） | 产品规划、架构评审、团队标准化 | 低（skills） | 中等 | YC CEO 作品，决策层强；适合 startup 思维。缺点：部分技能偏产品而非纯工程 |
+| Get Shit Done (GSD) | 54.2k | 轻量上下文工程 + 反"企业仪式" | Wave parallelism + 原子任务 + 上下文隔离 | Solo 快速交付、已知明确需求 | 低（npx） | 低 | 最轻快、不拖沓；适合不想繁琐流程的人。缺点：对复杂文档驱动项目较弱 |
+| BMAD | 44.9k | 多角色敏捷团队模拟 + 完整文档流 | 12+ 固定 Agent（PM、Architect、Dev、UX 等） | 复杂项目、需 PRD/Architecture 的团队 | 中等 | 高 | 文档最完整、企业感强；缺点：被吐槽 bloated（流程重、token 消耗大） |
+| SpecKit (GitHub 官方) | 7.6k | Spec-Driven（规范先行） + Agent-agnostic | 无固定 Agent（跨工具标准化） | 合规、跨 Agent、大组织、spec 重项目 | 中等（CLI，支持 air-gapped） | 中等 | 企业友好度最高（有企业安装指南）；缺点：有时显得"生成幻觉工作" |
+| everything-claude-code | 24.8k | 生产级 + 可审计 + 大量 skills | 28+ Agent + 116+ skills | 生产系统、安全、可审计的大型项目 | 中等 | 高 | Skills 最丰富；适合重度用户。缺点：可能过于全面而复杂 |
+| Compound Engineering (CE) | 1.1k | 复利式工程（Plan 80% + Review + 知识积累） | 多 Agent + git worktrees 并行 | 长期可持续开发、知识复用 | 低（插件） | 中等 | 强调"每次工作让后续更容易"；适合想建立长期系统的人。Every Inc. 重度自用 |
+| OpenSpec | 2.8k | 轻量 Spec-Driven + Delta Specs | 轻量 CLI 驱动 | Brownfield（现有代码）快速迭代 | 低 | 低 | 比 SpecKit 更快更轻；适合已有项目增量修改 |
 
 这个Markdown表格保留了您原始数据中的所有信息，包括范围值、括号内的补充说明以及优缺点描述。
 
