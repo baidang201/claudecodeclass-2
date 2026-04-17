@@ -52,13 +52,26 @@ npx skills add https://github.com/vercel-labs/agent-browser --skill agent-brow
 ### 4\. 安装 Skill 教程与实战
 
   * **安装命令**: 通常使用 `npx skills add <skill-name>` 安装
-  示范安装
+  示范命令安装
 ```
-npx skills add https://github.com/vercel-labs/skills --skill find-skills
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
 ```
+选择安装到claude code
+![alt text](image-50.png)
 
+选择安装到全局
+![alt text](image-51.png)
 
-  * 或手动放置在全局skills目录 `~/.claude/skills` 目录 或者 项目的skills目录`./.claude/skills`。
+使用链接的方式安装
+![alt text](image-52.png)
+
+预览安装路径和风险
+![alt text](image-53.png)
+
+安装完成
+![alt text](image-54.png)
+
+  * 或下载skill文件夹，手动放置在全局skills目录 `~/.claude/skills` 目录 或者 项目的skills目录`./.claude/skills`。
   * **实战**: 尝试编写一个简单的 `weather-skill`，让 Claude 能在终端告诉你当前城市的天气。
 
 示范使用模板创建skill
@@ -515,7 +528,7 @@ review完了，有些小问题
 ![alt text](image-49.png)
 
 #### 总结
-1 感觉流程比较繁琐，不熟悉工作流和skill，不知道要调用哪个
+1 感觉流程比较繁琐，不熟悉工作流和skill，有时不知道要调用哪个，我们可以调用/bmad-help，看看当前适合调用哪个工作流
 2 框架提供的工作流和skill，业务看起来比较专业
 3 大家可以自己搭配skill和工作流，找到合适自己的工作流
 
