@@ -88,6 +88,14 @@ claude
 ```
 ![alt text](image-55.png)
 
+创建成功
+![alt text](image-56.png)
+
+开始测试
+```
+深圳天气
+```
+![alt text](image-57.png)
 -----
 
 ## 二、 协议标准：MCP (Model Context Protocol)
@@ -157,13 +165,20 @@ Plugins 是集合了 Skill、Command、Hook 的高级封装包。
 
 ### 13\. 高星多 Agent 框架对比
 
-| 框架名称 | 核心特点 | 适用场景 |
-| :--- | :--- | :--- |
-| **Superpowers** | 极简、个人增强、开箱即用 | **个人开发者** |
-| **BMAD** | 针对企业级业务逻辑、强规则约束 | **大团队/企业** |
-| **GStack** | 侧重于全栈开发自动化 | 中小团队 |
-| **SpecKit / OpenSpec** | 专注于规格说明书驱动开发 (SDD) | 规范化团队 |
-| **Get Shit Done** | 极速交付、任务导向 | 自由职业者 |
+以下是您提供的CSV表格转换为Markdown格式：
+
+| 框架 | GitHub Stars（约） | 核心哲学 / 定位 | 多 Agent 方式 | 最佳使用场景 | 安装难度 | 重量级（流程繁重程度） | 社区口碑亮点 / 缺点 |
+|------|-------------------|-----------------|---------------|--------------|----------|----------------------|---------------------|
+| Superpowers | 94k–156k | 严谨工程纪律 + TDD + 结构化流程 | Sub-agent + 技能组合 + 对抗式审查 | 需要高质量代码、TDD、长期维护的项目 | 低（官方插件市场） | 中等–高 | 最成熟、增长最快；适合 solo 开发者补纪律。缺点：有时过于严格 |
+| GStack (gstack) | 50k–74k | 角色治理 + 虚拟团队视角（Garry Tan） | 23 个 Specialist Roles（CEO、Designer、QA、Security 等） | 产品规划、架构评审、团队标准化 | 低（skills） | 中等 | YC CEO 作品，决策层强；适合 startup 思维。缺点：部分技能偏产品而非纯工程 |
+| Get Shit Done (GSD) | 35k–54k | 轻量上下文工程 + 反"企业仪式" | Wave parallelism + 原子任务 + 上下文隔离 | Solo 快速交付、已知明确需求 | 低（npx） | 低 | 最轻快、不拖沓；适合不想繁琐流程的人。缺点：对复杂文档驱动项目较弱 |
+| BMAD | ~44k–45k | 多角色敏捷团队模拟 + 完整文档流 | 12+ 固定 Agent（PM、Architect、Dev、UX 等） | 复杂项目、需 PRD/Architecture 的团队 | 中等 | 高 | 文档最完整、企业感强；缺点：被吐槽 bloated（流程重、token 消耗大） |
+| SpecKit (GitHub 官方) | ~89k | Spec-Driven（规范先行） + Agent-agnostic | 无固定 Agent（跨工具标准化） | 合规、跨 Agent、大组织、spec 重项目 | 中等（CLI，支持 air-gapped） | 中等 | 企业友好度最高（有企业安装指南）；缺点：有时显得"生成幻觉工作" |
+| everything-claude-code | ~140k–158k | 生产级 + 可审计 + 大量 skills | 28+ Agent + 116+ skills | 生产系统、安全、可审计的大型项目 | 中等 | 高 | Skills 最丰富；适合重度用户。缺点：可能过于全面而复杂 |
+| Compound Engineering (CE) | ~11.5k–14.5k | 复利式工程（Plan 80% + Review + 知识积累） | 多 Agent + git worktrees 并行 | 长期可持续开发、知识复用 | 低（插件） | 中等 | 强调"每次工作让后续更容易"；适合想建立长期系统的人。Every Inc. 重度自用 |
+| OpenSpec | 中等 | 轻量 Spec-Driven + Delta Specs | 轻量 CLI 驱动 | Brownfield（现有代码）快速迭代 | 低 | 低 | 比 SpecKit 更快更轻；适合已有项目增量修改 |
+
+这个Markdown表格保留了您原始数据中的所有信息，包括范围值、括号内的补充说明以及优缺点描述。
 
 > **总结推荐：**
 >
