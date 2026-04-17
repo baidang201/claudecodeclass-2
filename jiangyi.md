@@ -464,25 +464,20 @@ BMAD 是一个开源的 AI 多agent敏捷开发框架，专门为 Claude Code、
    - 让 PM Agent 把 Product Brief 转化为完整 PRD（包含用户故事、验收标准等）。
 3. **`/bmad-create-architecture`**  
    - Architect Agent 根据 PRD 输出技术架构和实现规格。
-4. **`/bmad-create-epics-and-stories`** （或直接 `/bmad-create-story`）  
+4. **`/bmad-create-epics-and-stories`** 
    - 拆解需求为可执行的用户故事。
-5. **`/bmad-quick-dev`** （推荐演示） 或 `/bmad-dev-story`  
-   - 快速实现第一个用户故事，展示 TDD/实现流程（quick-dev 更适合演示，速度快）。
+5. **`/bmad-create-story `** 
+   - 细化用户故事并开发用户故事，展示 TDD/实现流程。
 6. **`/bmad-code-review`**  
    - 执行对抗式代码审查，展示质量控制。
 
-##### 
+覆盖了**需求→规划→技术设计→实现→审查**的完整闭环。
 
 ##### 创建演示项目
 ```
 mkdir claude-bmad-richeng
 cd claude-bmad-richeng
 ```
-
-
-
-
-
 
 ##### 2. 安装 bmad 插件。
 
@@ -685,24 +680,6 @@ review完了，有些小问题
 1 感觉流程比较繁琐，不熟悉工作流和skill，有时不知道要调用哪个，我们可以调用/bmad-help，看看当前适合调用哪个工作流
 2 框架提供的工作流和skill，业务看起来比较专业
 3 大家可以自己搭配skill和工作流，找到合适自己的工作流
-
-### **方案A：简化版完整流程（推荐）**
-如果想展示从零开始的完整流程但不过于复杂：
-
-1. **`/bmad-product-brief`**  
-   - 从模糊想法快速生成产品简报，定义核心价值和 MVP 范围。
-2. **`/bmad-create-prd`**  
-   - 让 PM Agent 把 Product Brief 转化为完整 PRD（包含用户故事、验收标准等）。
-3. **`/bmad-create-architecture`**  
-   - Architect Agent 根据 PRD 输出技术架构和实现规格。
-4. **`/bmad-create-epics-and-stories`** （或直接 `/bmad-create-story`）  
-   - 拆解需求为可执行的用户故事。
-5. **`/bmad-quick-dev`** （推荐演示） 或 `/bmad-dev-story`  
-   - 快速实现第一个用户故事，展示 TDD/实现流程（quick-dev 更适合演示，速度快）。
-6. **`/bmad-code-review`**  
-   - 执行对抗式代码审查，展示质量控制。
-
-**总时长**：覆盖了**需求→规划→技术设计→实现→审查**的完整闭环。
 
 -----
 
