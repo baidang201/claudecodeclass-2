@@ -52,8 +52,20 @@ npx skills add https://github.com/vercel-labs/agent-browser --skill agent-brow
 ### 4\. 安装 Skill 教程与实战
 
   * **安装命令**: 通常使用 `npx skills add <skill-name>` 安装
+  示范安装
+```
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
+```
+
+
   * 或手动放置在全局skills目录 `~/.claude/skills` 目录 或者 项目的skills目录`./.claude/skills`。
   * **实战**: 尝试编写一个简单的 `weather-skill`，让 Claude 能在终端告诉你当前城市的天气。
+
+示范使用模板创建skill
+```
+npx skills add https://github.com/anthropics/skills --skill skill-creator
+```
+
 
 -----
 
@@ -276,14 +288,21 @@ claude
 ### 15\. 团队框架 BMAD 实战
 
 BMAD简介
-BMAD是一个敏捷AI驱动开发的完整框架，核心目标是通过AI代理和结构化工作流，实现从需求到部署的全流程自动化闭环。
-核心特点
-1 多智能体协同：12+个领域专家代理（产品经理、架构师、开发者、UX、Scrum Master等）
-2 结构化工作流：50+个引导式工作流，核心模块BMM包含34+个跨4个开发阶段的工作流
-3 规模自适应：根据项目复杂度自动调整规划深度，小到单点修复、大到企业级交付均可适用
-4 Party Mode：支持在同一会话中引入多个Agent角色协作讨论，形成"多角色会议"式决策
-5 全生命周期覆盖：从头脑风暴、需求定义、架构设计、开发实现到部署交付全流程支持
+BMAD 是一个开源的 AI 多agent敏捷开发框架，专门为 Claude Code、Cursor 等 AI 编码环境设计。它把 Claude（或其他大模型）从“氛围编程”（vibe coding）转变为一个结构化、多角色 AI 团队，让 AI 成为你的专业协作伙伴，而不是简单执行工具。
 
+目前一个简化版完整演示流程如下
+1. **`/bmad-product-brief`**  
+   - 从模糊想法快速生成产品简报，定义核心价值和 MVP 范围。
+2. **`/bmad-create-prd`**  
+   - 让 PM Agent 把 Product Brief 转化为完整 PRD（包含用户故事、验收标准等）。
+3. **`/bmad-create-architecture`**  
+   - Architect Agent 根据 PRD 输出技术架构和实现规格。
+4. **`/bmad-create-epics-and-stories`** （或直接 `/bmad-create-story`）  
+   - 拆解需求为可执行的用户故事。
+5. **`/bmad-quick-dev`** （推荐演示） 或 `/bmad-dev-story`  
+   - 快速实现第一个用户故事，展示 TDD/实现流程（quick-dev 更适合演示，速度快）。
+6. **`/bmad-code-review`**  
+   - 执行对抗式代码审查，展示质量控制。
 
 #### 
 
@@ -373,6 +392,132 @@ claude
 我们继续，输入
 “c”
 
+![alt text](image-1.png)
+这里提示要深入理解需求，还是头脑风暴，还是继续构建产品愿景，我们选第三个c
+![alt text](image-33.png)
+
+![alt text](image-34.png)
+然后他让我们思考产品的愿景相关问题，
+
+输入
+
+```
+1 简洁专业
+2 看到日程表那一刻
+3 更符合个人习惯的，离线的
+4 一个离线简介的日程管理软件
+```
+![alt text](image-35.png)
+下面的十多步 prd步骤先略过了贴图
+
+
+完整的13个prd步骤为
+```
+/bmad-create-prd 常见的 13 步完整流程（实际步骤文件名和顺序可能因版本略有调整）：
+
+1 step-01-init
+初始化 workflow，加载项目上下文，检查已有文档（Product Brief 等）。
+
+2 step-02-discovery
+项目发现与上下文深度收集（背景、问题域、利益相关者等）。
+
+3 step-02b-vision
+定义产品愿景（Vision）和使命。
+
+4 step-02c-executive-summary
+生成执行摘要（给高层看的概述）。
+
+5 step-03-success（或 step-03-success-metrics / step-05-metrics）
+定义成功标准、KPI 和度量指标。
+
+6 step-04-journeys
+绘制用户旅程（User Journeys）和核心场景。
+
+7 step-05-domain-analysis（或 step-05-technical / step-05-domain）
+领域分析、关键实体、业务规则、技术趋势等。
+
+8 step-06-innovation（或 step-06-features / step-06-innovation）
+功能 brainstorm、创新点、差异化特性。
+
+9 step-07-project-type / step-07-scoping
+项目类型判断 + 范围划定（MVP vs 后续阶段）。
+
+10 step-08-requirements（或 step-08-fr-nfr）
+功能需求（FRs）和非功能需求（NFRs）详细定义。
+
+11 step-09-stories（或 step-09-epics-stories）
+拆解成 Epics 和 User Stories。
+
+12 step-10-acceptance（或 step-10-criteria）
+验收标准（Acceptance Criteria）细化。
+
+13 step-11-review / step-12-complete / step-v-13-report-complete
+最终审查、完整性检查、输出 PRD.md，并给出下一步建议（通常是 Architecture 或 Epics & Stories）。
+```
+
+![alt text](image-36.png)
+
+#### prd创建好了，我们来设计技术架构
+```
+/bmad-create-architecture
+```
+
+![alt text](image-37.png)
+
+我们继续分析
+![alt text](image-38.png)
+
+下面是多个对话进行技术分析，我们可以略过不贴图了，一直继续就可以了。
+
+![alt text](image-39.png)
+技术架构设计好了，我们继续下一步
+
+#### 创建史诗和用户故事
+```
+/bmad-create-epics-and-stories
+```
+![alt text](image-40.png)
+
+我们输入c继续
+![alt text](image-41.png)
+
+好了，我们继续略过用户故事讨论环节的贴图
+![alt text](image-42.png)
+用户故事创建好了，我们继续开发
+
+
+#### 细化用户故事并开发用户故事
+```
+ /bmad-create-story 
+```
+![alt text](image-43.png)
+
+好了，开发完了
+![alt text](image-44.png)
+
+我们试用一下，运行成功，感觉功能实现和UI还行
+![alt text](image-45.png)
+
+
+#### 最后审查一下代码
+```
+/bmad-code-review
+```
+![alt text](image-46.png)
+
+我们选择Full file review
+![alt text](image-47.png)
+
+review完了，有些小问题
+![alt text](image-48.png)
+
+我们输入“Batch-apply all”自动修复
+![alt text](image-49.png)
+
+#### 总结
+1 感觉流程比较繁琐，不熟悉工作流和skill，不知道要调用哪个
+2 框架提供的工作流和skill，业务看起来比较专业
+3 大家可以自己搭配skill和工作流，找到合适自己的工作流
 
 ### **方案A：简化版完整流程（推荐）**
 如果想展示从零开始的完整流程但不过于复杂：
