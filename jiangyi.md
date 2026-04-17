@@ -14,7 +14,7 @@
 
 ### 1\. Skill 简介
 
-**Skill**是可复用的说明、知识、工作流，通常包含一个 SKILL.md 以及可运行脚本、资源文件。
+**Skill**是可复用的说明、知识、工作流，通常包含一个 SKILL.md 以及可运行脚本、资源文件。
 
 ### 2\. SkillHub 资源网站
 
@@ -25,28 +25,28 @@
 
 •查找skill的 skill：
 ```
-npx skills add https://github.com/vercel-labs/skills --skill find-skills
+npx skills add https://github.com/vercel-labs/skills --skill find-skills
 ```
 •创建 skill 的 skill
 ```
-npx skills add https://github.com/anthropics/skills --skill skill-creator
+npx skills add https://github.com/anthropics/skills --skill skill-creator
 ```
-• 产品需求头脑风暴规划
+• 产品需求头脑风暴规划
 ```
-npx skills add https://github.com/obra/superpowers --skill brainstorming
+npx skills add https://github.com/obra/superpowers --skill brainstorming
 ```
-• 前端开发 React 编码规范 skill
+• 前端开发 React 编码规范 skill
 ```
-npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices
+npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices
 ```
 
-• 前端开发 UI/UX 美化
+• 前端开发 UI/UX 美化
 ```
-npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max
+npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max
 ```
-• 浏览器自动化 skill
+• 浏览器自动化 skill
 ```
-npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
+npx skills add https://github.com/vercel-labs/agent-browser --skill agent-browser
 ```
 
 ### 4\. 安装 Skill 教程与实战
@@ -76,9 +76,17 @@ npx skills add https://github.com/vercel-labs/skills --skill find-skills
 
 示范使用模板创建skill
 ```
-npx skills add https://github.com/anthropics/skills --skill skill-creator
+npx skills add https://github.com/anthropics/skills --skill skill-creator
 ```
 
+```
+claude
+```
+
+```
+帮我创建一个weather-skill，可以查询中国城市的当前天气
+```
+![alt text](image-55.png)
 
 -----
 
@@ -168,8 +176,8 @@ Plugins 是集合了 Skill、Command、Hook 的高级封装包。
 ## 六、 实战演练
 
 ### 14\. 个人框架 Superpowers 实战，
-superpower简介
-Superpowers 是 Claude Code 插件市场上最流行的 Agentic Coding 框架之一，目前在 GitHub 上已有 156k ⭐！
+superpower简介(https://github.com/obra/superpowers)
+Superpowers 是 Claude Code 插件市场上最流行的 Agentic Coding 框架之一，目前在 GitHub 上已有 156k ⭐！
 
 Superpowers 是一个开源的 AI 行为准则框架。它不是直接帮你写代码，而是给 AI 制定了一套极其严格的“工作流程”和“专业技能”，让 AI 像一个有多年经验、做事极度严谨的顶级工程师一样思考和行动。主要技能包括：
 ✅ 需求脑暴
@@ -222,7 +230,7 @@ claude
 
 #### 3 刷新插件
 ```
- /reload-plugins  
+ /reload-plugins  
 ``` 
 ![alt text](image-6.png)
 
@@ -300,7 +308,7 @@ claude
 
 ### 15\. 团队框架 BMAD 实战
 
-BMAD简介
+BMAD简介(https://github.com/bmad-code-org/BMAD-METHOD)
 BMAD 是一个开源的 AI 多agent敏捷开发框架，专门为 Claude Code、Cursor 等 AI 编码环境设计。它把 Claude（或其他大模型）从“氛围编程”（vibe coding）转变为一个结构化、多角色 AI 团队，让 AI 成为你的专业协作伙伴，而不是简单执行工具。
 
 目前一个简化版完整演示流程如下
